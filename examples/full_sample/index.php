@@ -88,11 +88,11 @@ if(isset($_POST['passenger'])) {
         ],
         "transitType" : "PKTransitTypeAir"
     },
-    "barcode": {
-        "format": "PKBarcodeFormatQR",
+    "barcodes": [{
+        "format": "PKBarcodeFormatPDF417",
         "message": "Flight-Gate' . $gate . '-' . $date . '-' . $passenger . '-' . $destination . '",
         "messageEncoding": "iso-8859-1"
-    },
+	}],
     "relevantDate": "' . date('Y-m-d\TH:i:sP', $_POST['date']) . '"
     }');
 

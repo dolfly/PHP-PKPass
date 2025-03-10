@@ -63,10 +63,12 @@ $data = [
         ],
         'transitType' => 'PKTransitTypeAir',
     ],
-    'barcode' => [
-        'format' => 'PKBarcodeFormatQR',
-        'message' => 'Flight-GateF12-ID6643679AH7B',
-        'messageEncoding' => 'iso-8859-1',
+    'barcodes' => [
+            [
+            'format' => 'PKBarcodeFormatQR',
+            'message' => 'Flight-GateF12-ID6643679AH7B',
+            'messageEncoding' => 'iso-8859-1',
+        ]
     ],
     'backgroundColor' => 'rgb(32,110,247)',
     'logoText' => 'Flight info',
