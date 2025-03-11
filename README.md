@@ -48,10 +48,13 @@ style it, take a look at the [docs at developers.apple.com](https://developer.ap
 3. Click the edit button under your newly created Pass Type ID and generate a certificate according to the instructions
    shown on the page. Make sure _not_ to choose a name for the Certificate but keep it empty instead.
 4. Download the .cer file and drag it into Keychain Access.
-5. Find the certificate you just imported and click the triangle on the left to reveal the private key.
-6. Select both the certificate and the private key it, then right-click the certificate in Keychain Access and
+5. Choose to filter by **Certificates** in the top filter bar.
+6. Find the certificate you just imported and click the triangle on the left to reveal the private key.
+7. Select both the certificate and the private key it, then right-click the certificate in Keychain Access and
    choose `Export 2 items…`.
-7. Choose a password and export the file to a folder.
+8. Choose a password and export the file to a folder.
+
+![Exporting P12 file](docs/guide-export.gif)
 
 ### Getting the example.php sample to work
 
@@ -64,17 +67,7 @@ of the examples/example.php file on your iPhone.
 
 ## Debugging
 
-### OpenSSL error
-
-When you get the error 'Could not read certificate file. This might be related to using an OpenSSL version that has deprecated some older hashes. More info here: https://schof.link/2Et6z3m OpenSSL error: error:0308010C:digital envelope routines::unsupported' this is due to osx exporting the .p12 file using an old version of OpenSSL. To fix this issue, use the following commands:
-
-`openssl pkcs12 -legacy -in key.p12 -nodes -out key_decrypted.tmp` (replace key.p12 with your .p12 file name).
-
-`openssl pkcs12 -in key_decrypted.tmp -export -out key_new.p12` (use the newly generated key_new.p12 file in your pass generation below)
-
-![Exporting P12 file](docs/guide-export.gif)
-
-## Using the Console app
+### Using the Console app
 
 If you aren't able to open your pass on an iPhone, plug the iPhone into a Mac and open the 'Console' application. On the left, you can select your iPhone. You will then be able to inspect any errors that occur while adding the pass:
 
@@ -82,6 +75,19 @@ If you aren't able to open your pass on an iPhone, plug the iPhone into a Mac an
 
 - `Trust evaluate failure: [leaf TemporalValidity]`: If you see this error, your pass was signed with an outdated certificate.
 - `Trust evaluate failure: [leaf LeafMarkerOid]`: You did not leave the name of the certificate empty while creating it in the developer portal.
+
+### OpenSSL errors
+
+When you get the error 'Could not read certificate file', this might be related to using an OpenSSL version that has deprecated some older hashes - [more info here](https://schof.link/2Et6z3m).
+
+There may be no need to configure OpenSSL to use legacy algorithms. It's easier and more portable just to convert the encrypted certificates file. The steps below use a .p12 file but it should work to swap these commands for a .pfx file.
+
+Instructions:
+
+1. `openssl pkcs12 -legacy -in key.p12 -nodes -out key_decrypted.tmp` (replace key.p12 with your .p12 file name).
+2. `openssl pkcs12 -in key_decrypted.tmp -export -out key_new.p12 -certpbe AES-256-CBC -keypbe AES-256-CBC -iter 2048` (use the newly generated key_new.p12 file in your pass generation below)
+
+The `key_new.p12` file should now be compatible with OpenSSL v3+.
 
 ## Changelog
 
