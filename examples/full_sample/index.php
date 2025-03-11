@@ -45,11 +45,11 @@ if(isset($_POST['passenger'])) {
 
     // Set pass data
     $pass->setData('{
-	"passTypeIdentifier": "pass.com.scholica.flights",
+	"passTypeIdentifier": "pass.com.includable.pkpass-example",
 	"formatVersion": 1,
 	"organizationName": "Flight Express",
 	"serialNumber": "123456",
-	"teamIdentifier": "KN44X8ZLNC",
+	"teamIdentifier": "839X4P2FV8",
 	"backgroundColor": "rgb(32,110,247)",
 	"logoText": "FLIGHT_INFO_LABEL",
 	"description": "Demo pass",
@@ -168,10 +168,10 @@ if(isset($_POST['passenger'])) {
 	</head>
 	<body>
 	<div class="header">
-		<img class="logo" src="icon.png"/> <span class="title">Air Company</span>
+		<img class="logo" src="../images/icon.png"/> <span class="title">Air Company</span>
 	</div>
 	<div class="userinfo">
-		<form action="index.php" method="post" class="form-stacked">
+		<form action="?submit" method="post" class="form-stacked">
 			<fieldset>
 				<legend style="padding-left: 0;">Please enter your info</legend>
 

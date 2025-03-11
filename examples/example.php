@@ -26,9 +26,9 @@ $data = [
     'description' => 'Demo pass',
     'formatVersion' => 1,
     'organizationName' => 'Flight Express',
-    'passTypeIdentifier' => 'pass.com.scholica.flights', // Change this!
+    'passTypeIdentifier' => 'pass.com.includable.pkpass-example', // Change this!
     'serialNumber' => '12345678',
-    'teamIdentifier' => 'KN44X8ZLNC', // Change this!
+    'teamIdentifier' => '839X4P2FV8', // Change this!
     'boardingPass' => [
         'primaryFields' => [
             [
