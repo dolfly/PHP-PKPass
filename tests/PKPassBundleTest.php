@@ -258,7 +258,7 @@ final class PKPassBundleTest extends TestCase
             $expectedNames = ['pass1.pkpass', 'pass2.pkpass', 'pass3.pkpass'];
             for ($i = 0; $i < $zip->numFiles; $i++) {
                 $fileName = $zip->getNameIndex($i);
-                $this->assertContains($fileName, $expectedNames);
+                $this->assertEquals($expectedNames[$i], $fileName);
             }
             
             $zip->close();
