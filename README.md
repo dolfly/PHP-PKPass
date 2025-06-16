@@ -34,12 +34,13 @@ style it, take a look at the [docs at developers.apple.com](https://developer.ap
 - ✈️ [Flight ticket example](examples/full_sample/)
 - ☕️ [Starbucks card example](examples/starbucks_sample/)
 
-### Functions to add files
+## API Documentation
 
-- `addFile` : add a file without locale like `icon.png`
-- `addRemoteFile` : add a file from a url without locale like `https://xyz.io/icon.png`
-- `addLocaleFile` : add a localized file like `strip.png`
-- `addLocaleRemoteFile` : add a localized file from a url like `https://xyz.io/strip.png`
+API documentation is available for all main classes:
+
+- **[PKPass API Documentation](docs/PKPass.md)** - Main class for creating Apple Wallet passes
+- **[PKPassBundle API Documentation](docs/PKPassBundle.md)** - Bundle multiple passes into a single `.pkpasses` file
+- **[FinanceOrder API Documentation](docs/FinanceOrder.md)** - Create Apple Wallet Orders for financial transactions
 
 ## Requesting the Pass Certificate
 
@@ -90,6 +91,10 @@ Instructions:
 The `key_new.p12` file should now be compatible with OpenSSL v3+.
 
 ## Changelog
+
+**Version 2.4.0 - October 2024**
+
+- Add `PKPassBundle` class to bundle multiple passes into a single `.pkpasses` file.
 
 **Version 2.3.2 - September 2024**
 
