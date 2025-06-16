@@ -90,7 +90,7 @@ class PKPassBundle
         $zip = $this->createZip();
         $zip->close();
 
-        if (copy($this->tempFile, $path) === false) {
+        if (@copy($this->tempFile, $path) === false) {
             $error = error_get_last();
             unlink($this->tempFile);
             throw new \RuntimeException('Could not write zip archive to file. Error: ' . ($error['message'] ?? 'Unknown error'));
