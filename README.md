@@ -57,6 +57,31 @@ API documentation is available for all main classes:
 
 ![Exporting P12 file](docs/guide-export.gif)
 
+## Push updates to Wallet (APNs)
+
+Apple Wallet passes can be updated via push notifications through the Apple Push Notification Service (APNs).
+This allows you to notify devices that a pass has changed (e.g. new balance, flight delay, order update).
+
+### Usage
+
+The new `push` method can be used to send a notification for a given pass:
+
+```php
+use PKPass\Push;
+
+$push = new Push([
+    'teamId'        => 'ABCD1234XY',           // Apple Developer Team ID
+    'keyId'         => 'XYZ9876543',           // Key ID from Apple Developer portal
+    'authKey'       => '/path/AuthKey.p8',     // Path to the AuthKey file
+    'bundleId'      => 'pass.com.example.demo' // Your Pass Type Identifier
+]);
+
+$deviceToken = 'abcdef1234567890...'; // Obtained when device registers
+$title       = '1234567890';          // Title
+$body        = '1234567890';          // Body
+
+$push->send($deviceToken, $title, $body);
+
 ### Getting the example.php sample to work
 
 1. Request the Pass certificate (`.p12`) as described above and upload it to your server.
