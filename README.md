@@ -41,6 +41,7 @@ API documentation is available for all main classes:
 - **[PKPass API Documentation](docs/PKPass.md)** - Main class for creating Apple Wallet passes
 - **[PKPassBundle API Documentation](docs/PKPassBundle.md)** - Bundle multiple passes into a single `.pkpasses` file
 - **[FinanceOrder API Documentation](docs/FinanceOrder.md)** - Create Apple Wallet Orders for financial transactions
+- **[Push API Documentation](docs/Push.md)** - Push updates to passes via APNS
 
 ## Requesting the Pass Certificate
 
