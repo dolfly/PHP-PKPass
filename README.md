@@ -93,7 +93,7 @@ The `key_new.p12` file should now be compatible with OpenSSL v3+.
 
 ## Changelog
 
-**Version 2.4.0 - October 2024**
+**Version 2.4.0 - June 2025**
 
 - Add `PKPassBundle` class to bundle multiple passes into a single `.pkpasses` file.
 
