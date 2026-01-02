@@ -481,7 +481,13 @@ class PKPass
             // If using certString, write to temp file for shell_exec
             if ($this->certString) {
                 $certFile = tempnam($this->tempPath, 'pkpass_cert');
-                file_put_contents($certFile, $this->certString);
+                if ($certFile === false) {
+                    throw new PKPassException('Could not create temporary certificate file.');
+                }
+                $bytesWritten = file_put_contents($certFile, $this->certString);
+                if ($bytesWritten === false) {
+                    throw new PKPassException('Could not write temporary certificate file.');
+                }
             } else {
                 $certFile = $this->certPath;
             }
