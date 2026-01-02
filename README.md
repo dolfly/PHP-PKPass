@@ -93,6 +93,14 @@ The `key_new.p12` file should now be compatible with OpenSSL v3+.
 
 ## Changelog
 
+**Version 2.5.1 - January 2026**
+
+- Add support for setting the certificate from a string, allowing for more flexible certificate management.
+
+**Version 2.5.0 - September 2025**
+
+- Added `Push` class to handle push notifications for pass updates via APNS.
+
 **Version 2.4.0 - June 2025**
 
 - Add `PKPassBundle` class to bundle multiple passes into a single `.pkpasses` file.
