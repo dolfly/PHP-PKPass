@@ -62,4 +62,30 @@ final class BasicTest extends TestCase
             'signature',
         ]);
     }
+
+    public function testSetCertificateString()
+    {
+        $certString = file_get_contents(__DIR__ . '/fixtures/example-certificate.p12');
+
+        $pass = new PKPass();
+        $pass->setCertificateString($certString);
+        $pass->setCertificatePassword('password');
+        $pass->setData([
+            'description' => 'Demo pass',
+            'formatVersion' => 1,
+            'organizationName' => 'Flight Express',
+            'passTypeIdentifier' => 'pass.com.scholica.flights',
+            'serialNumber' => '12345678',
+            'teamIdentifier' => 'KN44X8ZLNC',
+        ]);
+        $pass->addFile(__DIR__ . '/fixtures/icon.png');
+        $value = $pass->create();
+
+        $this->validatePass($value, [
+            'icon.png',
+            'manifest.json',
+            'pass.json',
+            'signature',
+        ]);
+    }
 }

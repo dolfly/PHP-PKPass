@@ -33,6 +33,12 @@ class PKPass
     protected $certPath;
 
     /**
+     * Holds the certificate content as a string.
+     * @var string
+     */
+    protected $certString;
+
+    /**
      * Name of the downloaded file.
      * @var string
      */
@@ -117,6 +123,21 @@ class PKPass
     public function setCertificatePath($path)
     {
         $this->certPath = $path;
+
+        return true;
+    }
+
+    /**
+     * Sets the certificate from a string.
+     * If specified, this overrides any previously set certificate path.
+     *
+     * @param string $p12_string The P12 certificate content as a string
+     *
+     * @return bool
+     */
+    public function setCertificateString($p12_string)
+    {
+        $this->certString = $p12_string;
 
         return true;
     }
@@ -428,8 +449,10 @@ class PKPass
      */
     protected function readP12()
     {
-        // Use the built-in reader first
-        if (!$pkcs12 = file_get_contents($this->certPath)) {
+        // Use certString if set, otherwise read from file
+        if ($this->certString) {
+            $pkcs12 = $this->certString;
+        } elseif (!$pkcs12 = file_get_contents($this->certPath)) {
             throw new PKPassException('Could not read the certificate.');
         }
         $certs = [];
@@ -455,12 +478,32 @@ class PKPass
 
         // Try an alternative route using shell_exec
         try {
+            // If using certString, write to temp file for shell_exec
+            if ($this->certString) {
+                $certFile = tempnam($this->tempPath, 'pkpass_cert');
+                if ($certFile === false) {
+                    throw new PKPassException('Could not create temporary certificate file.');
+                }
+                $bytesWritten = file_put_contents($certFile, $this->certString);
+                if ($bytesWritten === false) {
+                    throw new PKPassException('Could not write temporary certificate file.');
+                }
+            } else {
+                $certFile = $this->certPath;
+            }
+
             $value = @shell_exec(
-                "openssl pkcs12 -in " . escapeshellarg($this->certPath) .
+                "openssl pkcs12 -in " . escapeshellarg($certFile) .
                 " -passin " . escapeshellarg("pass:" . $this->certPass) .
                 " -passout " . escapeshellarg("pass:" . $this->certPass) .
                 " -legacy"
             );
+
+            // Clean up temp file if we created one
+            if ($this->certString && isset($certFile)) {
+                @unlink($certFile);
+            }
+
             if ($value) {
                 $cert = substr($value, strpos($value, '-----BEGIN CERTIFICATE-----'));
                 $cert = substr($cert, 0, strpos($cert, '-----END CERTIFICATE-----') + 25);

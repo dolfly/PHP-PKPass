@@ -49,6 +49,16 @@ Sets the path to the certificate file.
 $pass->setCertificatePath('/path/to/certificate.p12');
 ```
 
+### `setCertificateString($p12_string)`
+Sets the certificate from a string.
+
+If specified, this overrides any previously set certificate path.
+
+**Parameters:**
+- `$p12_string` (string): The P12 certificate content as a string
+
+**Returns:** `bool` - Always returns true
+
 ### `setCertificatePassword($password)`
 
 Sets the certificate password.
